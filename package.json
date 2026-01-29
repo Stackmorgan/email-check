@@ -1,0 +1,53 @@
+{
+  "name": "@stackverify/email-check",
+  "version": "1.0.0",
+  "description": "High-performance email validation library to detect disposable emails, verify mail capability, and estimate inbox delivery likelihood.",
+  "type": "module",
+
+  "author": {
+    "name": "Morgan Miller",
+    "email": "hr@stackverify.site",
+    "url": "https://stackverify.site"
+  },
+
+  "homepage": "https://stackverify.site",
+  "license": "MIT",
+
+  "keywords": [
+    "email",
+    "email-validation",
+    "email-check",
+    "disposable-email",
+    "temp-email",
+    "email-verifier",
+    "mx-check",
+    "spam-prevention",
+    "saas",
+    "security",
+    "fraud-detection",
+    "stackverify",
+    "marketing-tools"
+  ],
+
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/esm/index.d.ts"
+    }
+  },
+
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+
+  "files": [
+    "dist"
+  ],
+
+  "scripts": {
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc -p tsconfig.build.json",
+    "build:cjs": "tsc -p tsconfig.build.json --module commonjs --outDir dist/cjs"
+  }
+}
