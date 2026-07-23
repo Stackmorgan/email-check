@@ -1,30 +1,10 @@
+import { disposableDomains } from "../data/disposable-emails.js";
+
 let disposableSet: Set<string> | null = null;
 
-async function loadDisposableSet(): Promise<Set<string>> {
+function getDisposableSet(): Set<string> {
   if (disposableSet) return disposableSet;
-
-  if (typeof process !== "undefined" && process.versions?.node) {
-    const fs = await import("fs/promises");
-    const path = await import("path");
-
-    const filePath = path.resolve(
-      __dirname,
-      "../data/disposable-email.conf"
-    );
-
-    const data = await fs.readFile(filePath, "utf8");
-
-    disposableSet = new Set(
-      data
-        .split("\n")
-        .map(d => d.trim().toLowerCase())
-        .filter(Boolean)
-    );
-
-    return disposableSet;
-  }
-
-  disposableSet = new Set();
+  disposableSet = new Set(disposableDomains.split("\n"));
   return disposableSet;
 }
 
@@ -37,7 +17,6 @@ function matchesDisposable(domain: string, set: Set<string>): boolean {
   return false;
 }
 
-export async function isDisposable(domain: string): Promise<boolean> {
-  const set = await loadDisposableSet();
-  return matchesDisposable(domain, set);
+export function isDisposable(domain: string): boolean {
+  return matchesDisposable(domain, getDisposableSet());
 }

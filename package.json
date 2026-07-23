@@ -3,16 +3,13 @@
   "version": "1.0.0",
   "description": "High-performance email validation library to detect disposable emails, verify mail capability, and estimate inbox delivery likelihood.",
   "type": "module",
-
   "author": {
     "name": "Morgan Miller",
     "email": "hr@stackverify.site",
     "url": "https://stackverify.site"
   },
-
   "homepage": "https://stackverify.site",
   "license": "MIT",
-
   "keywords": [
     "email",
     "email-validation",
@@ -28,26 +25,41 @@
     "stackverify",
     "marketing-tools"
   ],
-
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js",
       "types": "./dist/esm/index.d.ts"
+    },
+    "./syntax": {
+      "import": "./dist/esm/core/syntax.js",
+      "require": "./dist/cjs/core/syntax.js",
+      "types": "./dist/esm/core/syntax.d.ts"
+    },
+    "./disposable": {
+      "import": "./dist/esm/core/disposable.js",
+      "require": "./dist/cjs/core/disposable.js",
+      "types": "./dist/esm/core/disposable.d.ts"
+    },
+    "./inbox-score": {
+      "import": "./dist/esm/core/inbox-score.js",
+      "require": "./dist/cjs/core/inbox-score.js",
+      "types": "./dist/esm/core/inbox-score.d.ts"
     }
   },
-
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
-
   "files": [
     "dist"
   ],
-
   "scripts": {
-    "build": "npm run build:esm && npm run build:cjs",
+    "build": "npm run build:esm && npm run build:cjs && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
     "build:esm": "tsc -p tsconfig.build.json",
     "build:cjs": "tsc -p tsconfig.build.json --module commonjs --outDir dist/cjs"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "typescript": "^7.0.2"
   }
 }

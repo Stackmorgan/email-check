@@ -1,8 +1,8 @@
-import { isValidSyntax } from "./core/syntax";
-import { isDisposable } from "./core/disposable";
-import { inboxScore } from "./core/inbox-score";
-import { extractDomain } from "./utils/extract-domain";
-import type { EmailCheckResult } from "./core/result";
+import { isValidSyntax } from "./core/syntax.js";
+import { isDisposable } from "./core/disposable.js";
+import { inboxScore } from "./core/inbox-score.js";
+import { extractDomain } from "./utils/extract-domain.js";
+import type { EmailCheckResult } from "./core/results.js";
 
 const isNode =
   typeof process !== "undefined" &&
@@ -32,14 +32,14 @@ export async function checkEmail(email: string): Promise<EmailCheckResult> {
     return result;
   }
 
-  result.disposable = await isDisposable(domain);
+  result.disposable = isDisposable(domain);
   if (result.disposable) {
     result.reason = "Disposable email provider";
     return result;
   }
 
   if (isNode) {
-    const { domainExists, hasMX } = await import("./server/mail");
+    const { domainExists, hasMX } = await import("./server/mail.js");
 
     result.domainExists = await domainExists(domain);
     if (!result.domainExists) {
